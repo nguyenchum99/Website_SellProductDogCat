@@ -22,12 +22,15 @@ class UserLoginAndRegister extends Controller
         return view('index');
     }
 
-    public function getHome(){
-        
+    public function getHome($id){
+
+        $bill = Bill::find($id);
+
         $list = DB::table('products')
         ->select('products.id','products.name',
         'products.unit_price','products.image','products.description')->get();
-        return view('home',['list'=>$list]);
+
+        return view('home',['list'=>$list,'bill'=>$bill]);
     }
 
     public function getLogin(){
@@ -59,8 +62,15 @@ class UserLoginAndRegister extends Controller
         if(Auth::attempt([ 'name' => $request->name,
         'password' => $request->password]))
         {
-            if(Auth::user()->level == 0)
-                return redirect('home');
+            if(Auth::user()->level == 0){
+                $bill = new Bill;
+                $bill->user_id = Auth::user()->id;
+                $bill->total = 0;
+                $bill->save();
+                
+
+                return redirect('home/'.$bill->id);
+            }
             else{
                 return redirect('add_product');
             }

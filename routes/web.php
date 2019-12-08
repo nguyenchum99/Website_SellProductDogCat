@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('index','shoppingController@getListProduct');
 
-Route::get('home','UserLoginAndregister@getHome');
+Route::get('home/{id}','UserLoginAndregister@getHome');
 
 Route::get('logout','UserLoginAndregister@getLogout');
 
@@ -45,4 +45,13 @@ Route::get('add_product',function(){
 
 Route::post('add_product','adminController@postAddProduct');
 
-Route::get('single/{id}','shoppingController@getSingleProduct');
+Route::get('single/{bill}/{id}','shoppingController@getSingleProduct');
+
+Route::get('add_to_cart/{b}/{id}','shoppingController@addToCart');
+
+Route::get('cart/{id}','shoppingController@getCart');
+
+
+Route::get('order/{id}/{total}','shoppingController@postOrder');
+
+Route::get('delete/{bill}/{id}','shoppingController@deleteBillDetail');

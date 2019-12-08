@@ -27,7 +27,7 @@
                 <a class="navbar-brand" href="#" style="color:#ffffff">Nhom10</a>
               </div>
               <ul class="nav navbar-nav" >
-                <li><a href="{{url("home")}}" style="color:#ffffff">Trang chủ</a></li>
+                <li><a href="{{url("home/{$bill->id}")}}" style="color:#ffffff">Trang chủ</a></li>
                 <li><a href="{{url("shopping")}}" style="color:#ffffff">Sản phẩm </a>
                 </li>
                 <li><a href="#" style="color:#ffffff">Tin tức</a></li>
@@ -60,7 +60,7 @@
                  style="height: 70%; width: 70%; " ></center>
                 </div>
                 <div class="col-sm-6 right">
-                  <form action="" method="post">
+                
                     <h4><b> {{$product->name}}</b></h4>
                     <p style="color: red">Tình trạng: còn hàng</p>
                     <p>Giá: {{$product->unit_price}} đ</p>
@@ -76,8 +76,9 @@
                           <option>6</option>
                         </select>
                     </ul>
-                    <input type="submit" value="Đặt hàng"/>
-                  </form>
+                    <button style="submit"  class="btn btn-primary">
+                    <a href="{{url("add_to_cart/{$bill->id}/{$product->id}")}}" 
+                      style="text-decoration: none; color: #ffffff">Đặt hàng</a></button>
                 </div>
 
              </div>
@@ -89,7 +90,7 @@
              @foreach($list as $l)
                       <div class="product">
                           <div class="product_images">
-                            <a href="{{url("single/{$l->id}")}}"><img src="{{URL::asset('/img/banhang/'.$l->image)}}" width="150" height="150"></a>
+                            <a href="{{url("single/{$bill->id}/{$l->id}")}}"><img src="{{URL::asset('/img/banhang/'.$l->image)}}" width="150" height="150"></a>
                           </div>
           
                           <div class="product_bottom">
@@ -98,7 +99,9 @@
                                   </b></a>
                               </div>
                               <p class="price_text">
-                                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                                  <button type="submit"><a href="{{url("add_to_cart/{$bill->id}/{$l->id}")}}">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span></a></button>
+                                
                                   {{-- <span class="percent">-50%</span> --}}
                                   <span class="price">{{$l->unit_price}}  đ</span>
                                   {{-- <br><span class="original">100.000 đ</span> --}}
